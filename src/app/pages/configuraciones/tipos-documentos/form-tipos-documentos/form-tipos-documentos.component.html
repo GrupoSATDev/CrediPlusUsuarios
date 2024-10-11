@@ -1,0 +1,49 @@
+<div class="w-full sm:bg-card sm:rounded-2xl sm:w-96 max-w-96 sm:mx-0 mx-auto" >
+    <div class="">
+        <!-- Title -->
+        <div
+            class="mt-8 text-3xl font-semibold leading-tight tracking-tight text-center"
+        >
+            {{_matData.edit ? 'Actualizar' : 'Agregar'}}
+        </div>
+
+        <!-- Sign Up form -->
+        <form class="mt-8" [formGroup]="form">
+            <!-- Name field -->
+            <mat-form-field class="w-full" floatLabel="always">
+                <mat-label>Abreviaatura</mat-label>
+                <input  matInput [formControlName]="'codigo'" placeholder="Abreviaatura" />
+            </mat-form-field>
+
+            <mat-form-field class="w-full" floatLabel="always">
+                <mat-label>Tipo de documento</mat-label>
+                <input  matInput [formControlName]="'nombre'" placeholder="Tipo de documento" />
+            </mat-form-field>
+
+            <div class="flex flex-wrap justify-end gap-2.5">
+                <button
+                    class="fuse-mat-button-large mt-6 bg-credigray-100 rounded-lg transition duration-200 text-white font-semibold"
+                    mat-raised-button
+                    [color]="'primary'"
+                    (click)="closeDialog()"
+                >
+
+                    <span> Cancelar </span>
+                </button>
+
+                <button
+                    class="fuse-mat-button-large mt-6 bg-crediblue-50 rounded-lg transition duration-200 text-white font-semibold"
+                    mat-raised-button
+                    [color]="'primary'"
+                    (click)="onSave()"
+                >
+
+                    <span> Guardar </span>
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+</div>

@@ -1,0 +1,80 @@
+<div
+    class="bg-card flex min-w-0 flex-auto flex-col dark:bg-transparent sm:absolute sm:inset-0 sm:overflow-hidden"
+>
+    <div
+        class="relative flex flex-0 flex-col border-b px-6 py-8 sm:flex-row sm:items-center sm:justify-between md:px-8"
+    >
+        <!-- Title -->
+        <div class="text-3xl font-semibold tracking-tight">Solicitudes</div>
+
+        <!-- Actions -->
+        <div class="mt-6 flex shrink-0 items-center sm:ml-4 sm:mt-0">
+            <!-- Add product button -->
+            <button
+                class="ml-4 bg-crediblue-50 rounded-lg transition duration-200 text-white font-semibold"
+                mat-flat-button
+                (click)="onNew()"
+            >
+                <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
+                <span class="ml-2 mr-1">Agregar</span>
+            </button>
+        </div>
+
+    </div>
+
+    <!--Main-->
+    <div class="flex flex-auto overflow-hidden">
+        <!-- Products list -->
+        <div
+            class="flex flex-auto flex-row gap-2.5 justify-center overflow-hidden sm:overflow-y-auto bg-gray-100 sm:p-2"
+        >
+            <ng-container *ngFor="let item of data">
+                <fuse-card class="filter-list flex w-full max-w-80 flex-col p-8 pt-6 mt-2 shadow-lg rounded-lg" style="height: 60%">
+                    <div class="flex justify-center border-b pb-4 mb-4">
+                        <div class="text-2xl font-semibold leading-tight text-gray-800 text-center">
+                           Solicitud {{ item.nombreTipoSolicitud }}
+                        </div>
+                        <!--<div class="-mr-3">
+                            <button mat-icon-button [matMenuTriggerFor]="listCard07Menu">
+                                <mat-icon class="icon-size-5 text-gray-600" [svgIcon]="'heroicons_solid:ellipsis-vertical'"></mat-icon>
+                            </button>
+                            <mat-menu #listCard07Menu="matMenu">
+                                <button mat-menu-item>View weekly</button>
+                                <button mat-menu-item>View monthly</button>
+                            </mat-menu>
+                        </div>-->
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center">
+                            <span class="font-medium text-gray-600">Fecha:</span>
+                            <span class="text-md text-secondary">{{ item.fechaCreacion }}</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="font-medium text-gray-600">Número de solicitud:</span>
+                            <span class="text-md text-secondary">{{ item.numSolicitud }}</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="font-medium text-gray-600">Valor solicitado:</span>
+                            <span class="text-md text-secondary">{{ item.cupo }}</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="font-medium text-gray-600">Estado:</span>
+                            <span class="text-md text-secondary">{{ item.nombreEstadoSolicitud }}</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="font-medium text-gray-600">Observaciones:</span>
+                            <span class="text-md text-secondary" >{{ item.observacion }}</span>
+                        </div>
+                    </div>
+                </fuse-card>
+
+            </ng-container>
+
+
+        </div>
+
+    </div>
+
+</div>
+

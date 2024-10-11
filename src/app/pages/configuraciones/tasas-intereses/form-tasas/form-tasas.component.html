@@ -1,0 +1,74 @@
+<div class="w-full sm:bg-card sm:rounded-2xl sm:w-96 max-w-96 sm:mx-0 mx-auto" >
+    <div class="">
+        <!-- Title -->
+        <div
+            class="mt-8 text-3xl font-semibold leading-tight tracking-tight text-center"
+        >
+            {{_matData.edit ? 'Actualizar tasa' : 'Agregar tasa'}}
+        </div>
+
+        <!-- Sign Up form -->
+        <form class="mt-8" [formGroup]="form">
+            <div class="flex mb-4">
+                <div
+                    class="fcursor-pointer"
+                    (click)="twoStepToggle.toggle()"
+                >
+                    <div class="font-medium leading-6">
+                        Estado {{form.get('estado').value ? 'Activo' : 'Inactivo'}}
+                    </div>
+                </div>
+                <mat-slide-toggle
+                    class="ml-4"
+                    [color]="'primary'"
+                    [formControlName]="'estado'"
+                    #twoStepToggle
+                >
+                </mat-slide-toggle>
+            </div>
+            <!-- Name field -->
+            <mat-form-field class="w-full" floatLabel="always">
+                <mat-label>Nombre</mat-label>
+                <input  matInput [formControlName]="'nombre'" placeholder="Nombre"/>
+            </mat-form-field>
+
+            <mat-form-field class="w-full" floatLabel="always">
+                <mat-label>Porcentaje %</mat-label>
+                <input  matInput [formControlName]="'porcentaje'" placeholder="Porcentaje %"/>
+            </mat-form-field>
+
+            <mat-form-field  class="w-full" floatLabel="always">
+                <mat-label>Vigencia</mat-label>
+                <input matInput [matDatepicker]="picker" [formControlName]="'vigencia'" />
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+
+            <div class="flex flex-wrap justify-end gap-2.5 ">
+                <button
+                    class="fuse-mat-button-large mt-6 bg-credigray-100 rounded-lg transition duration-200 text-white font-semibold"
+                    mat-flat-button
+                    (click)="closeDialog()"
+                >
+
+                    <span> Cancelar </span>
+                </button>
+
+                <button
+                    class="fuse-mat-button-large mt-6 bg-crediblue-50 rounded-lg transition duration-200 text-white font-semibold"
+                    mat-flat-button
+                    (click)="onSave()"
+                >
+
+                    <span> Guardar </span>
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+
+
