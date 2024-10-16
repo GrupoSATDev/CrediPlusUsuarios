@@ -8,7 +8,7 @@
                     <app-terminos-condiciones (aceptacionCambiada)="onAceptarTerminos($event)">  </app-terminos-condiciones>
                     <div class="text-center">
                         <button
-                            class="bg-crediorange-100 mt-4 rounded-lg transition duration-200 text-white font-semibold "
+                            class="sm:w-auto w-full bg-crediorange-100 mt-4 rounded-lg transition duration-200 text-white font-semibold "
                             mat-flat-button
                             [color]="'primary'"
                             (click)="closeDialog()"
@@ -21,7 +21,7 @@
                             matStepperNext
                             [disabled]="!aceptoTerminos"
                             [ngClass]="{'bg-crediblue-50' : aceptoTerminos,  'bg-credigray-100' : !aceptoTerminos }"
-                            class="text-white px-6 py-2 rounded-md  mt-4 ml-2"
+                            class="sm:w-auto w-full text-white px-6 py-2 rounded-md  mt-2 sm:mt-4 sm:ml-2"
                         >
                             Siguiente
                         </button>
@@ -56,8 +56,8 @@
                         </mat-form-field>
 
                         <div class="flex flex-wrap justify-center gap-2.5">
-                            <button mat-raised-button matStepperPrevious  class="bg-credigray-100 rounded-lg transition duration-200 text-white font-semibold">Anterior</button>
-                            <button mat-raised-button matStepperNext [disabled]="firstFormGroup.invalid" class="bg-crediblue-50 text-white px-6 py-2 rounded-md">Siguiente</button>
+                            <button mat-raised-button matStepperPrevious  class="sm:w-auto w-full bg-credigray-100 rounded-lg transition duration-200 text-white font-semibold">Anterior</button>
+                            <button mat-raised-button matStepperNext [disabled]="firstFormGroup.invalid" class="sm:w-auto w-full bg-crediblue-50 text-white px-6 py-2 rounded-md">Siguiente</button>
                         </div>
 
                     </form>
@@ -79,9 +79,9 @@
                     <p class="mb-6 text-left">
                         3.	Si tu solicitud fue rechazada puedes comunicarte con nuestro equipo para obtener más información, podrás realizar una nueva solicitud dentro de XXX días.
                     </p>
-                    <div>
+                    <div class="flex flex-wrap justify-center sm:gap-2">
                         <button
-                            class="bg-crediorange-100 rounded-lg transition duration-200 text-white font-semibold"
+                            class="sm:w-auto w-full bg-crediorange-100 rounded-lg transition duration-200 text-white font-semibold"
                             mat-flat-button
                             [color]="'primary'"
                             (click)="closeDialog()"
@@ -93,7 +93,7 @@
                             mat-raised-button
                             matStepperNext
                             [disabled]="initialInfoForm.invalid"
-                            class="bg-crediblue-50 text-white px-6 py-2 rounded-md ml-2"
+                            class="sm:w-auto w-full bg-crediblue-50 text-white px-6 py-2 mt-2 rounded-md sm:mt-0 sm:ml-2"
                         >
                             Siguiente
                         </button>
@@ -134,9 +134,9 @@
                         <mat-label>Observaciónes</mat-label>
                         <textarea matInput placeholder="Observaciones" [formControlName]="'observacion'"></textarea>
                     </mat-form-field>
-                    <div>
+                    <div class="flex flex-wrap justify-center sm:gap-2.5">
                         <button
-                            class="bg-crediorange-100 rounded-lg transition duration-200 text-white font-semibold"
+                            class="sm:w-auto w-full bg-crediorange-100 rounded-lg transition duration-200 text-white font-semibold"
                             mat-flat-button
                             [color]="'primary'"
                             (click)="closeDialog()"
@@ -147,7 +147,7 @@
 
                         <button mat-raised-button [disabled]="secondFormGroup.invalid"
                                 [ngClass]="{'bg-crediblue-50' : secondFormGroup.valid,  'bg-credigray-100' : secondFormGroup.invalid }"
-                                class="text-white px-6 py-2 rounded-md ml-2"
+                                class="sm:w-auto w-full text-white px-6 py-2 rounded-md mt-2 sm:mt-0 sm:ml-2"
                                 (click)="onSave()"
                         >Finalizar
                         </button>

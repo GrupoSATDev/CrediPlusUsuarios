@@ -101,8 +101,8 @@ export class GridSolicitudesComponent implements OnInit, OnDestroy{
                 edit: false,
             },
             maxHeight: '95vh',
-            maxWidth: '100%',
-            disableClose: true
+            disableClose: true,
+            panelClass: 'custom-dialog-container'
         })
     }
 
