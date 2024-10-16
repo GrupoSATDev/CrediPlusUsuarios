@@ -110,6 +110,48 @@
                         }
                     </button>
                     <mat-error> Contraseña es requerida! </mat-error>
+                </mat-form-field> <!-- Password field -->
+
+                <mat-form-field class="w-full" floatLabel="always">
+                    <mat-label>Confirmar contraseña</mat-label>
+                    <input
+                        id="confirmaContrasena"
+                        matInput
+                        type="password"
+                        [formControlName]="'confirmaContrasena'"
+                        #passwordConfirm
+                        placeholder="Confirmar contraseña"
+                    />
+                    <button
+                        mat-icon-button
+                        type="button"
+                        (click)="
+                            passwordConfirm.type === 'password'
+                                ? (passwordConfirm.type = 'text')
+                                : (passwordConfirm.type = 'password')
+                        "
+                        matSuffix
+                    >
+                        @if (passwordConfirm.type === 'password') {
+                            <mat-icon
+                                class="icon-size-5"
+                                [svgIcon]="'heroicons_solid:eye'"
+                            ></mat-icon>
+                        }
+                        @if (passwordConfirm.type === 'text') {
+                            <mat-icon
+                                class="icon-size-5"
+                                [svgIcon]="'heroicons_solid:eye-slash'"
+                            ></mat-icon>
+                        }
+                    </button>
+                    @if (signUpForm.get('confirmaContrasena').hasError('required')) {
+                        <mat-error>Confirmar contraseña es requerida! </mat-error>
+                    }
+                    @if (signUpForm.get('confirmaContrasena').hasError('passwordMismatchError')) {
+                        <mat-error> Las contraseñas no coinciden! </mat-error>
+                    }
+
                 </mat-form-field>
 
                 <!-- Submit button -->

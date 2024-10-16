@@ -1,10 +1,11 @@
 import { Component, inject, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import {
+    AbstractControl,
     FormsModule,
     NgForm,
     ReactiveFormsModule,
     UntypedFormBuilder,
-    UntypedFormGroup,
+    UntypedFormGroup, ValidationErrors, ValidatorFn,
     Validators,
 } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -95,7 +96,10 @@ export class AuthSignUpComponent implements OnInit {
             numDoc: ['', Validators.required],
             correo: ['', [Validators.required, Validators.email]],
             contrasena: ['', Validators.required],
-        });
+            confirmaContrasena: ['', Validators.required],
+        }, { validators: passwordMatchValidator('contrasena', 'confirmaContrasena') });
+
+
     }
 
     // -----------------------------------------------------------------------------------------------------
@@ -123,8 +127,14 @@ export class AuthSignUpComponent implements OnInit {
 
         dialog.afterClosed().subscribe((response) => {
 
+            const {confirmaContrasena, ...form} = this.signUpForm.getRawValue();
+
+            const data = {
+                ...form
+            }
+
             if (response === 'confirmed') {
-                this._authService.signUp(this.signUpForm.value).subscribe(
+                this._authService.signUp(data).subscribe(
                     (response) => {
                         // Navigate to the confirmation required page
                         this.swalService.ToastAler({
@@ -162,4 +172,23 @@ export class AuthSignUpComponent implements OnInit {
     }
 
 
+}
+
+export function passwordMatchValidator(controlName: string, matchingControlName: string): ValidatorFn {
+    return (formGroup: AbstractControl) => {
+        const control = formGroup.get(controlName);
+        const matchingControl = formGroup.get(matchingControlName);
+
+        if (matchingControl?.errors && !matchingControl.errors['passwordMismatchError']) {
+            return null; // Return if another validator has already found an error
+        }
+
+        // Set error on matchingControl if validation fails
+        if (control?.value !== matchingControl?.value) {
+            matchingControl?.setErrors({ passwordMismatchError: true });
+        } else {
+            matchingControl?.setErrors(null);
+        }
+        return null;
+    };
 }
