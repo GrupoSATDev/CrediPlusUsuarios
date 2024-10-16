@@ -93,8 +93,8 @@ export class FormViewDetalleComponent implements OnInit, OnDestroy{
             data: {
                 data: this.items
             },
-            width: '30%',
-            disableClose: true
+            disableClose: true,
+            panelClass: 'custom-dialog-container'
         })
     }
 
