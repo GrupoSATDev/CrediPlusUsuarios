@@ -119,7 +119,7 @@ export class AppSettingsService {
         url: {
             base: EndPoints.uriBase('CobroTrabajadores'),
             baseTabla: EndPoints.uriBase('CobroTrabajadores/Tabla'),
-            baseCard: EndPoints.uriBase('CobroTrabajadores/Trabajador'),
+            baseCard: EndPoints.uriBase('CobroTrabajadores/CardTrabajador'),
         }
     }
 

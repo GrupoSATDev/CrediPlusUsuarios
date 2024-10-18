@@ -29,10 +29,10 @@
             class="flex flex-auto flex-row gap-2.5 justify-center overflow-hidden sm:overflow-y-auto bg-gray-100 sm:p-2"
         >
             <ng-container *ngFor="let item of data">
-                <fuse-card class="filter-list flex w-full max-w-80 flex-col p-8 pt-6 mt-2 shadow-lg rounded-lg" style="height: 60%">
+                <fuse-card class="filter-list flex w-full max-w-lg flex-col p-8 pt-6 mt-2 shadow-lg rounded-lg" style="height: 60%">
                     <div class="flex justify-center border-b pb-4 mb-4">
                         <div class="text-2xl font-semibold leading-tight text-gray-800 text-center">
-                           Solicitud {{ item.nombreTipoSolicitud }}
+                           Solicitud de {{ item.nombreTipoSolicitud }}
                         </div>
                         <!--<div class="-mr-3">
                             <button mat-icon-button [matMenuTriggerFor]="listCard07Menu">
@@ -65,6 +65,14 @@
                         <div class="flex justify-between items-center">
                             <span class="font-medium text-gray-600">Observaciones:</span>
                             <span class="text-md text-secondary" >{{ item.observacion }}</span>
+                        </div>
+                        <div class="flex justify-between items-center" *ngIf="item.observacionRechazo">
+                            <span class="font-medium text-gray-600">Causa rechazo:</span>
+                            <span class="text-md text-secondary" >{{ item.observacionRechazo }}</span>
+                        </div>
+                        <div class="flex justify-between items-center" *ngIf="item.observacionAprueba">
+                            <span class="font-medium text-gray-600">Notas internas:</span>
+                            <span class="text-md text-secondary" >{{ item.observacionAprueba }}</span>
                         </div>
                     </div>
                 </fuse-card>

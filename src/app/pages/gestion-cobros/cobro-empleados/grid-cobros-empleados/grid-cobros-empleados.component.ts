@@ -56,7 +56,7 @@ export class GridCobrosEmpleadosComponent implements OnInit, OnDestroy{
     public subcription$: Subscription;
     public selectedData: any;
 
-    data = [];
+    data: any;
 
     buttons: IButton[] = [
         {
@@ -80,33 +80,23 @@ export class GridCobrosEmpleadosComponent implements OnInit, OnDestroy{
     private cobros() {
         this.subcription$ = this.cobroTrabadorService.getCobroTrabajador().pipe(
             map((response) => {
-                response.data.forEach((items) => {
-                    if (items.estado) {
-                        items.estado = Estados.ACTIVO;
-                    }else {
-                        items.estado = Estados.INACTIVO;
-                    }
-                })
-                return response;
 
-            }),
-            map((response) => {
-                response.data.forEach((items) => {
-                    items.fechaCobro = this.datePipe.transform(items.fechaCobro, 'dd/MM/yyyy');
-                    items.deudaTotal = this.currencyPipe.transform(items.deudaTotal, 'USD', 'symbol', '1.2-2');
-                    items.montoCuota = this.currencyPipe.transform(items.montoCuota, 'USD', 'symbol', '1.2-2');
+                    response.data.fechaCobro = this.datePipe.transform(response.data.fechaCobro, 'dd/MM/yyyy');
+                    response.data.deudaTotal = this.currencyPipe.transform(response.data.deudaTotal, 'USD', 'symbol', '1.2-2');
+                    response.data.montoProximoPago = this.currencyPipe.transform(response.data.montoProximoPago, 'USD', 'symbol', '1.2-2');
                     //items.nombreTrabajador = this.datePipe.transform(items.nombreTrabajador, 'titlecase');
-                })
+
                 return response;
             })
         ).subscribe((response) => {
             if (response) {
+                console.log(response)
                 this.data = response.data;
             }else {
-                this.data = [];
+                this.data = {};
             }
         }, error => {
-            this.data = [];
+            this.data = {};
         })
     }
 
