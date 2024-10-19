@@ -28,6 +28,7 @@ import { DialogConfirmDesembolsoComponent } from '../dialog-confirm-desembolso/d
 import { DetalleConsumoService } from '../../../../core/services/detalle-consumo.service';
 import { guardar } from '../../../../core/constant/dialogs';
 import { SwalService } from '../../../../core/services/swal.service';
+import { FuseAlertComponent } from '../../../../../@fuse/components/alert';
 
 @Component({
   selector: 'app-form-view-detalle',
@@ -55,6 +56,7 @@ import { SwalService } from '../../../../core/services/swal.service';
         CustomTableComponent,
         FuseCardComponent,
         NgClass,
+        FuseAlertComponent,
     ],
     providers: [
         { provide: DateAdapter, useClass: DateAdapterService },

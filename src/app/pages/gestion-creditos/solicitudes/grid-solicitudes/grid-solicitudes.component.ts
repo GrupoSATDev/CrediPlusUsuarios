@@ -25,6 +25,7 @@ import { MatCheckbox } from '@angular/material/checkbox';
 import { MatProgressBar } from '@angular/material/progress-bar';
 import { CodigosDetalleConsumo } from '../../../../core/enums/detalle-consumo';
 import { TipoSolicitudesService } from '../../../../core/services/tipo-solicitudes.service';
+import { FuseAlertComponent } from '../../../../../@fuse/components/alert';
 
 @Component({
   selector: 'app-grid-solicitudes',
@@ -52,6 +53,7 @@ import { TipoSolicitudesService } from '../../../../core/services/tipo-solicitud
         MatProgressBar,
         NgForOf,
         MatIconButton,
+        FuseAlertComponent,
     ],
     providers: [
         DatePipe,
@@ -141,11 +143,12 @@ export class GridSolicitudesComponent implements OnInit, OnDestroy{
     }
 
     private listenGrid() {
-        const refreshData$ = this.estadoDatosService.stateGridSolicitudes.asObservable();
+        const refreshData$ = this.estadoDatosService.stateGrid.asObservable();
 
         refreshData$.subscribe((states) => {
-            if (states.state) {
+            if (states) {
                 console.log('Si entro')
+                this.getSolicitudes();
             }
         })
 

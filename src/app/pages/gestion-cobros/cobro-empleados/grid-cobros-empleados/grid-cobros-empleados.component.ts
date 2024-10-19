@@ -17,6 +17,7 @@ import { MatSelect, MatSelectChange } from '@angular/material/select';
 import { EstadoCreditosService } from '../../../../core/services/estado-creditos.service';
 import { FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { FuseCardComponent } from '../../../../../@fuse/components/card';
+import { FuseAlertComponent } from '../../../../../@fuse/components/alert';
 
 @Component({
   selector: 'app-grid-cobros-empleados',
@@ -35,6 +36,7 @@ import { FuseCardComponent } from '../../../../../@fuse/components/card';
         AsyncPipe,
         ReactiveFormsModule,
         FuseCardComponent,
+        FuseAlertComponent,
     ],
     providers: [
         DatePipe,

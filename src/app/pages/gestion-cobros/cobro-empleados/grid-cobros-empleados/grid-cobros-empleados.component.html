@@ -10,44 +10,60 @@
     </div>
 
     <!--Main-->
-    <div class="flex flex-auto overflow-hidden">
-        <!-- Products list -->
-        <div
-            class="flex flex-auto flex-row items-baseline flex-wrap gap-2.5 justify-center overflow-hidden sm:overflow-y-auto bg-gray-100 sm:p-2"
-        >
+    @if (data.length) {
+        <div class="flex flex-auto overflow-hidden">
+            <!-- Products list -->
+            <div
+                class="flex flex-auto flex-row items-baseline flex-wrap gap-2.5 justify-center overflow-hidden sm:overflow-y-auto bg-gray-100 sm:p-2"
+            >
 
-            <fuse-card class="filter-list flex w-full max-w-lg flex-col p-6 sm:p-8 mt-4 shadow-lg rounded-lg bg-white">
-                <div class="space-y-6">
-                    <div class="flex justify-between items-center">
-                        <span class="font-semibold text-gray-700">Fecha próximo pago:</span>
-                        <span class="text-md text-secondary">{{ data.fechaCobro }}</span>
+                <fuse-card class="filter-list flex w-full max-w-lg flex-col p-6 sm:p-8 mt-4 shadow-lg rounded-lg bg-white">
+                    <div class="space-y-6">
+                        <div class="flex justify-between items-center">
+                            <span class="font-semibold text-gray-700">Fecha próximo pago:</span>
+                            <span class="text-md text-secondary">{{ data.fechaCobro }}</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="font-semibold text-gray-700">Próximo pago:</span>
+                            <span class="text-md text-secondary">{{ data.montoProximoPago }}</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="font-semibold text-gray-700">Deuda total:</span>
+                            <span class="text-md text-secondary">{{ data.deudaTotal }}</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="font-semibold text-gray-700">Estado:</span>
+                            <span class="text-md text-secondary">{{ data.nombreEstadoCredito }}</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="font-semibold text-gray-700">Estudio crédito:</span>
+                            <span class="text-md text-secondary">Por definir</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="font-semibold text-gray-700">Estudio plástico:</span>
+                            <span class="text-md text-secondary">Por definir</span>
+                        </div>
                     </div>
-                    <div class="flex justify-between items-center">
-                        <span class="font-semibold text-gray-700">Próximo pago:</span>
-                        <span class="text-md text-secondary">{{ data.montoProximoPago }}</span>
-                    </div>
-                    <div class="flex justify-between items-center">
-                        <span class="font-semibold text-gray-700">Deuda total:</span>
-                        <span class="text-md text-secondary">{{ data.deudaTotal }}</span>
-                    </div>
-                    <div class="flex justify-between items-center">
-                        <span class="font-semibold text-gray-700">Estado:</span>
-                        <span class="text-md text-secondary">{{ data.nombreEstadoCredito }}</span>
-                    </div>
-                    <div class="flex justify-between items-center">
-                        <span class="font-semibold text-gray-700">Estudio crédito:</span>
-                        <span class="text-md text-secondary">Por definir</span>
-                    </div>
-                    <div class="flex justify-between items-center">
-                        <span class="font-semibold text-gray-700">Estudio plástico:</span>
-                        <span class="text-md text-secondary">Por definir</span>
-                    </div>
-                </div>
-            </fuse-card>
+                </fuse-card>
 
+
+            </div>
 
         </div>
 
-    </div>
+    } @else {
+        <div class="inset-0 min-w-0 overflow-auto print:overflow-visible">
+
+            <div class="inline-block p-4 sm:p-8 print:p-0 w-full">
+                <fuse-alert
+                    [type]="'info'"
+                    [appearance]="'outline'">
+                    <span fuseAlertTitle>Información</span>
+                    No tienes compromisos pendientes en este momento.
+                </fuse-alert>
+            </div>
+
+        </div>
+    }
 
 </div>

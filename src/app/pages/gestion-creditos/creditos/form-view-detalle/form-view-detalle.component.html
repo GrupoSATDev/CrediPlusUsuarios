@@ -1,131 +1,134 @@
-<div class="absolute inset-0 min-w-0 overflow-auto print:overflow-visible" cdkScrollable>
-    <div class="inline-block p-4 sm:p-8 print:p-0 w-full">
-        <div class="bg-card shadow print:bg-transparent print:p-0 print:shadow-none rounded-2xl mx-auto overflow-hidden w-full max-w-5xl">
-            <div class="bg-crediblue-50 px-6 py-4 flex items-center justify-between">
-                <h2 class="text-lg sm:text-xl font-bold text-white">Detalle de Crédito</h2>
-            </div>
-
-            <div class="p-4 sm:p-6" *ngIf="items">
-                <!-- Información del Cliente y Empresa -->
-                <div class="mb-4 grid grid-cols-1 md:grid-cols-2 gap-4 justify-items-stretch lg:justify-items-center">
-                    <div class="space-y-4">
-                        <h3 class="text-lg sm:text-xl font-semibold text-gray-800">{{items.trabajador.primerNombre}} {{items.trabajador.segundoNombre}} {{items.trabajador.primerApellido}} {{items.trabajador.segundoApellido}} </h3>
-                        <p class="font-medium text-gray-600">Identificación:
-                            <span class="text-md text-secondary">{{items.trabajador.numDoc}}</span>
-                        </p>
-                        <p class="font-medium text-gray-600">Empresa:
-                            <span class="text-md text-secondary">{{items.nombreSubEmpresa}}</span>
-                        </p>
-                        <p class="font-medium text-gray-600">Cargo:
-                            <span class="text-md text-secondary">{{items.trabajador.cargo}}</span>
-                        </p>
-                        <p class="font-medium text-gray-600">Correo:
-                            <span class="text-md text-secondary">{{items.trabajador.correo}}</span>
-                        </p>
-                        <p class="font-medium text-gray-600">Dirección:
-                            <span class="text-md text-secondary">{{items.trabajador.direccion}}</span>
-                        </p>
-                        <p class="font-medium text-gray-600">Teléfono:
-                            <span class="text-md text-secondary">{{items.trabajador.telefono}}</span>
-                        </p>
-                    </div>
-
-                    <div class="space-y-4">
-                        <p class="font-medium text-gray-600">Número de crédito:
-                            <span class="text-md text-secondary ">{{items.numCredito}}</span>
-                        </p>
-                        <p class="font-medium text-gray-600">Cupo aprobado:
-                            <span class="text-md text-secondary ">{{items.cupoAprobado | currency}}</span>
-                        </p>
-                        <p class="font-medium text-gray-600">Tasa de interes:
-                            <span class="text-md text-secondary ">{{items.porcTasaInteres }}%</span>
-                        </p>
-                        <p class="font-medium text-gray-600">Fecha de aprobacion:
-                            <span class="text-md text-secondary ">{{items.fechaAprobacion | date:'dd/MM/yyyy' }}</span>
-                        </p>
-                        <p class="font-medium text-gray-600">Fecha de vencimiento:
-                            <span class="text-md text-secondary ">{{items.fechaVencimiento | date:'dd/MM/yyyy' }}</span>
-                        </p>
-                        <p class="font-medium text-gray-600">Cupo utilizado:
-                            <span class="text-md text-secondary ">{{items.cupoConsumido | currency }}</span>
-                        </p>
-                        <p class="font-medium text-gray-600">Saldo Disponible:
-                            <span class="text-md text-secondary ">{{items.cupoDisponible | currency }}</span>
-                        </p>
-                        <button
-                            mat-flat-button
-                            class="lg:w-auto w-full mt-4 bg-green-600 transition duration-200 text-white font-semibold rounded-lg md:w-auto"
-                            (click)="onSolicitud()"
-                        >
-                            Solicitar avance
-                        </button>
-                    </div>
+@if(items) {
+    <div class="absolute inset-0 min-w-0 overflow-auto print:overflow-visible" cdkScrollable>
+        <div class="inline-block p-4 sm:p-8 print:p-0 w-full">
+            <div class="bg-card shadow print:bg-transparent print:p-0 print:shadow-none rounded-2xl mx-auto overflow-hidden w-full max-w-5xl">
+                <div class="bg-crediblue-50 px-6 py-4 flex items-center justify-between">
+                    <h2 class="text-lg sm:text-xl font-bold text-white">Detalle de Crédito</h2>
                 </div>
 
-                <hr class="my-4">
+                <div class="p-4 sm:p-6">
+                    <!-- Información del Cliente y Empresa -->
+                    <div class="mb-4 grid grid-cols-1 md:grid-cols-2 gap-4 justify-items-stretch lg:justify-items-center">
+                        <div class="space-y-4">
+                            <h3 class="text-lg sm:text-xl font-semibold text-gray-800">{{items.trabajador.primerNombre}} {{items.trabajador.segundoNombre}} {{items.trabajador.primerApellido}} {{items.trabajador.segundoApellido}} </h3>
+                            <p class="font-medium text-gray-600">Identificación:
+                                <span class="text-md text-secondary">{{items.trabajador.numDoc}}</span>
+                            </p>
+                            <p class="font-medium text-gray-600">Empresa:
+                                <span class="text-md text-secondary">{{items.nombreSubEmpresa}}</span>
+                            </p>
+                            <p class="font-medium text-gray-600">Cargo:
+                                <span class="text-md text-secondary">{{items.trabajador.cargo}}</span>
+                            </p>
+                            <p class="font-medium text-gray-600">Correo:
+                                <span class="text-md text-secondary">{{items.trabajador.correo}}</span>
+                            </p>
+                            <p class="font-medium text-gray-600">Dirección:
+                                <span class="text-md text-secondary">{{items.trabajador.direccion}}</span>
+                            </p>
+                            <p class="font-medium text-gray-600">Teléfono:
+                                <span class="text-md text-secondary">{{items.trabajador.telefono}}</span>
+                            </p>
+                        </div>
 
-                <p class="lg:text-center text-lg font-semibold font-bold mb-6" *ngIf="items.detalleConsumos">Movimientos</p>
-                <div class="mb-4" *ngIf="items.detalleConsumos">
-                    <div class="flex flex-wrap gap-2.5 justify-center">
-                        <ng-container *ngFor="let item of items.detalleConsumos">
-                            <fuse-card
-                                class="flex flex-col p-6 rounded-2xl shadow-2xl w-full md:w-1/2 lg:w-96"
-
+                        <div class="space-y-4">
+                            <p class="font-medium text-gray-600">Número de crédito:
+                                <span class="text-md text-secondary ">{{items.numCredito}}</span>
+                            </p>
+                            <p class="font-medium text-gray-600">Cupo aprobado:
+                                <span class="text-md text-secondary ">{{items.cupoAprobado | currency}}</span>
+                            </p>
+                            <p class="font-medium text-gray-600">Tasa de interes:
+                                <span class="text-md text-secondary ">{{items.porcTasaInteres }}%</span>
+                            </p>
+                            <p class="font-medium text-gray-600">Fecha de aprobacion:
+                                <span class="text-md text-secondary ">{{items.fechaAprobacion | date:'dd/MM/yyyy' }}</span>
+                            </p>
+                            <p class="font-medium text-gray-600">Fecha de vencimiento:
+                                <span class="text-md text-secondary ">{{items.fechaVencimiento | date:'dd/MM/yyyy' }}</span>
+                            </p>
+                            <p class="font-medium text-gray-600">Cupo utilizado:
+                                <span class="text-md text-secondary ">{{items.cupoConsumido | currency }}</span>
+                            </p>
+                            <p class="font-medium text-gray-600">Saldo Disponible:
+                                <span class="text-md text-secondary ">{{items.cupoDisponible | currency }}</span>
+                            </p>
+                            <button
+                                mat-flat-button
+                                class="lg:w-auto w-full mt-4 bg-green-600 transition duration-200 text-white font-semibold rounded-lg md:w-auto"
+                                (click)="onSolicitud()"
                             >
-                                <div class="flex justify-between">
-                                    <p class="font-medium text-gray-600">{{item.nombreSubEmpresa }}</p>
-                                    <p class="font-medium text-gray-600">{{item.fechaCreacion | date: 'dd/MM/yyyy' }}</p>
-                                </div>
-                                <div class="flex justify-between">
-                                    <p class="font-medium text-gray-600">Factura:
-                                        <span class="text-md text-secondary">
+                                Solicitar avance
+                            </button>
+                        </div>
+                    </div>
+
+                    <hr class="my-4">
+
+                    <p class="lg:text-center text-lg font-semibold font-bold mb-6" *ngIf="items.detalleConsumos">Movimientos</p>
+                    <div class="mb-4" *ngIf="items.detalleConsumos">
+                        <div class="flex flex-wrap gap-2.5 justify-center">
+                            <ng-container *ngFor="let item of items.detalleConsumos">
+                                <fuse-card
+                                    class="flex flex-col p-6 rounded-2xl shadow-2xl w-full md:w-1/2 lg:w-96"
+
+                                >
+                                    <div class="flex justify-between">
+                                        <p class="font-medium text-gray-600">{{item.nombreSubEmpresa }}</p>
+                                        <p class="font-medium text-gray-600">{{item.fechaCreacion | date: 'dd/MM/yyyy' }}</p>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <p class="font-medium text-gray-600">Factura:
+                                            <span class="text-md text-secondary">
                                             {{item.numeroFactura }}
                                         </span>
-                                    </p>
-                                    <p class="font-medium text-gray-600">Valor:
-                                        <span class="text-md text-secondary">
+                                        </p>
+                                        <p class="font-medium text-gray-600">Valor:
+                                            <span class="text-md text-secondary">
                                             {{item.montoConsumo | currency }}
                                         </span>
-                                    </p>
-                                </div>
-                                <div class="flex justify-between">
-                                    <p class="font-medium text-gray-600">Cuotas:
-                                        <span class="text-md text-secondary">
+                                        </p>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <p class="font-medium text-gray-600">Cuotas:
+                                            <span class="text-md text-secondary">
                                             {{item.cantidadCuotas}}
                                         </span>
-                                    </p>
-                                    <p class="font-medium text-gray-600">{{item.nombreEstadoCredito}}</p>
-                                </div>
-                                <div class="flex justify-between">
-                                    <p class="font-medium text-gray-600">Tipo:
-                                        <span class="text-md text-secondary">
+                                        </p>
+                                        <p class="font-medium text-gray-600">{{item.nombreEstadoCredito}}</p>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <p class="font-medium text-gray-600">Tipo:
+                                            <span class="text-md text-secondary">
                                             {{item.nombreTipoConsumo}}
                                         </span>
-                                    </p>
-                                </div>
-                                <div class="w-full mt-2">
-                                    <p class="h-2.5 rounded-full" [ngClass]="{
+                                        </p>
+                                    </div>
+                                    <div class="w-full mt-2">
+                                        <p class="h-2.5 rounded-full" [ngClass]="{
                                            'bg-green-600':  item.idEstadoCredito == CodigosDetalleConsumo.APROBADA,
                                            'bg-yellow-600': item.idEstadoCredito == CodigosDetalleConsumo.EN_REVISION,
                                            'bg-red-600': item.idEstadoCredito == CodigosDetalleConsumo.RECHAZADA
                                            }">
-                                    </p>
-                                </div>
-                                <ng-container *ngIf="item.idEstadoCredito == CodigosDetalleConsumo.EN_REVISION">
-                                    <div class="flex justify-between items-center mt-2 p-4 gap-2.5">
-                                        <button (click)="onReject(item.id)" mat-flat-button class="lg:w-auto w-full bg-crediorange-100 text-white font-semibold py-2 px-4 rounded-lg transition duration-200">
-                                            Rechazar
-                                        </button>
-                                        <button (click)="onSave(item.id)" mat-flat-button class="lg:w-auto w-full bg-crediblue-50 hover:bg-crediblue-100 text-white font-semibold py-2 px-4 rounded-lg transition duration-200">
-                                            Aprobar
-                                        </button>
+                                        </p>
                                     </div>
-                                </ng-container>
-                            </fuse-card>
-                        </ng-container>
+                                    <ng-container *ngIf="item.idEstadoCredito == CodigosDetalleConsumo.EN_REVISION">
+                                        <div class="flex justify-between items-center mt-2 p-4 gap-2.5">
+                                            <button (click)="onReject(item.id)" mat-flat-button class="lg:w-auto w-full bg-crediorange-100 text-white font-semibold py-2 px-4 rounded-lg transition duration-200">
+                                                Rechazar
+                                            </button>
+                                            <button (click)="onSave(item.id)" mat-flat-button class="lg:w-auto w-full bg-crediblue-50 hover:bg-crediblue-100 text-white font-semibold py-2 px-4 rounded-lg transition duration-200">
+                                                Aprobar
+                                            </button>
+                                        </div>
+                                    </ng-container>
+                                </fuse-card>
+                            </ng-container>
+                        </div>
                     </div>
+                    <!-- Acciónes -->
+
                 </div>
-                <!-- Acciónes -->
 
             </div>
 
@@ -133,4 +136,20 @@
 
     </div>
 
-</div>
+} @else {
+    <div class="absolute inset-0 min-w-0 overflow-auto print:overflow-visible">
+
+        <div class="inline-block p-4 sm:p-8 print:p-0 w-full">
+            <fuse-alert
+                [type]="'info'"
+                [appearance]="'outline'">
+                <span fuseAlertTitle>Información</span>
+                No cuentas con créditos activos.
+            </fuse-alert>
+        </div>
+
+    </div>
+
+}
+
+

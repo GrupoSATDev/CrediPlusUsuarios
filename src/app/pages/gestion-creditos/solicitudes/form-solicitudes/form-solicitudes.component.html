@@ -54,6 +54,10 @@
                             <mat-label>Ciudad</mat-label>
                             <input  matInput [formControlName]="'idMunicipio'" [readonly]="true"/>
                         </mat-form-field>
+                        <mat-form-field class="w-full">
+                            <mat-label>Número de cuenta</mat-label>
+                            <input  matInput [formControlName]="'numCuentaBancaria'" [readonly]="true"/>
+                        </mat-form-field>
 
                         <div class="flex flex-wrap justify-center gap-2.5">
                             <button mat-raised-button matStepperPrevious  class="sm:w-auto w-full bg-credigray-100 rounded-lg transition duration-200 text-white font-semibold">Anterior</button>
@@ -117,11 +121,13 @@
                     </p>
                     <mat-form-field  class="w-full" floatLabel="always">
                         <mat-label>Tipo de solicitud</mat-label>
-                        <mat-select [formControlName]="'idTipoSolicitud'" placeholder="Tipo de solicitud">
+                        <!--<input  matInput [formControlName]="'idTipoSolicitud'" [readonly]="true"/>-->
+                        <input  matInput [formControlName]="'solicitud'" [readonly]="true"/>
+                       <!-- <mat-select [formControlName]="'idTipoSolicitud'" placeholder="Tipo de solicitud" >
                             <ng-container *ngIf="tipoSolicitud$ | async as tipoSolicitud">
                                 <mat-option [value]="item.id" *ngFor="let item of tipoSolicitud.data">{{item.nombre}}</mat-option>
                             </ng-container>
-                        </mat-select>
+                        </mat-select>-->
                     </mat-form-field>
                     <mat-form-field class="w-full" floatLabel="always">
                         <mat-label>Digita el cupo que deseas solicitar</mat-label>
