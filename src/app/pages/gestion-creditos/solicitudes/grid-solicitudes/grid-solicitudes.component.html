@@ -11,7 +11,7 @@
         <div class="mt-6 flex shrink-0 items-center sm:ml-4 sm:mt-0">
             <!-- Add product button -->
             <button
-                class="ml-4 bg-crediblue-50 rounded-lg transition duration-200 text-white font-semibold"
+                class="w-full sm:w-auto bg-crediblue-50 rounded-lg transition duration-200 text-white font-semibold"
                 mat-flat-button
                 (click)="onNew()"
             >
@@ -26,7 +26,7 @@
     <div class="flex flex-auto overflow-hidden">
         <!-- Products list -->
         <div
-            class="flex flex-auto flex-row gap-2.5 justify-center overflow-hidden sm:overflow-y-auto bg-gray-100 sm:p-2"
+            class="flex flex-col sm:flex-row sm:flex-wrap gap-2.5 justify-center overflow-hidden sm:overflow-y-auto bg-gray-100 sm:p-2"
         >
             <ng-container *ngFor="let item of data">
                 <fuse-card class="filter-list flex w-full max-w-lg flex-col p-8 pt-6 mt-2 shadow-lg rounded-lg" style="height: 60%">

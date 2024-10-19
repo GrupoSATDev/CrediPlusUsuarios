@@ -89,7 +89,7 @@ export class GridEmpresasClientesComponent implements OnInit, OnDestroy{
     }
 
     getEmpresas() {
-        this.subcription$ = this.empresaClienteService.getEmpresas().pipe(
+        this.subcription$ = this.empresaClienteService.getEmpresasClientes().pipe(
             map((response) => {
                 response.data.forEach((items) => {
                     if (items.estado) {

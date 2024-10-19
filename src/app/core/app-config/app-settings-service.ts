@@ -36,7 +36,8 @@ export class AppSettingsService {
 
     public empresasClientes = {
         url: {
-            base: EndPoints.uriBase('SubEmpresas')
+            base: EndPoints.uriBase('SubEmpresas'),
+            baseTrabajador: EndPoints.uriBase('SubEmpresas/Clientes'),
         }
     }
 
@@ -111,6 +112,7 @@ export class AppSettingsService {
     public detalleConsumos = {
         url: {
             base: EndPoints.uriBase('DetalleConsumos'),
+            baseTrabajador: EndPoints.uriBase('DetalleConsumos/Trabajador'),
             desembolsoBase: EndPoints.uriBase('DetalleConsumos/DetalleConsumoDesembolso')
         }
     }
