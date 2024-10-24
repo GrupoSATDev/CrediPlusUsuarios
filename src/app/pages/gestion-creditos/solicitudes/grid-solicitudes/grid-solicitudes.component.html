@@ -24,7 +24,7 @@
 
     <!--Main-->
     @if(data.length) {
-        <div class="flex flex-auto overflow-hidden">
+        <div class="flex flex-auto overflow-hidden bg-gray-100">
             <!-- Products list -->
             <div
                 class="flex flex-col sm:flex-row sm:flex-wrap gap-2.5 justify-center overflow-hidden sm:overflow-y-auto bg-gray-100 sm:p-2"
@@ -32,7 +32,7 @@
                 <ng-container *ngFor="let item of data">
                     <fuse-card class="filter-list flex w-full max-w-lg flex-col p-8 pt-6 mt-2 shadow-lg rounded-lg" style="height: 60%">
                         <div class="flex justify-center border-b pb-4 mb-4">
-                            <div class="text-2xl font-semibold leading-tight text-gray-800 text-center">
+                            <div class="text-2xl font-semibold leading-tight text-center">
                                 Solicitud de {{ item.nombreTipoSolicitud }}
                             </div>
                             <!--<div class="-mr-3">
