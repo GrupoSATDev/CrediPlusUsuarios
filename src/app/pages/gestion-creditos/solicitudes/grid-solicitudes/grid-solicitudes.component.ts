@@ -12,7 +12,6 @@ import { SolicitudesService } from '../../../../core/services/solicitudes.servic
 
 import { FormSolicitudesComponent } from '../form-solicitudes/form-solicitudes.component';
 import { Estados } from '../../../../core/enums/estados';
-import { FormApproveComponent } from '../form-approve/form-approve.component';
 import { CurrencyPipe, DatePipe, NgClass, NgForOf, NgIf } from '@angular/common';
 import { MatTab, MatTabChangeEvent, MatTabContent, MatTabGroup } from '@angular/material/tabs';
 import { EstadosSolicitudes } from '../../../../core/enums/estados-solicitudes';
