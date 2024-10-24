@@ -119,7 +119,7 @@ export class FormViewDetalleComponent implements OnInit, OnDestroy{
                             title: 'Registro creado con exito!',
                             timer: 4000,
                         })
-                        this.router.navigate(['/pages/gestion-creditos/creditos']);
+                        this.getCredito(this.idCredito);
                     }
 
                 }, error => {
@@ -149,18 +149,18 @@ export class FormViewDetalleComponent implements OnInit, OnDestroy{
             if (response === 'confirmed') {
                 this.subcription$ = this.detalleConsumoService.patchConsumo(data).subscribe((response) => {
                     if (response.isExitoso) {
-                        this.toasService.toasAlertWarn({
-                            message: 'Registro creado con exito!',
-                            actionMessage: 'Cerrar',
-                            duration: 3000
+                        this.swalService.ToastAler({
+                            icon: 'success',
+                            title: 'Registro creado con exito!',
+                            timer: 4000,
                         })
-                        this.router.navigate(['/pages/gestion-creditos/creditos']);
+                        this.getCredito(this.idCredito);
                     }
                 }, error => {
-                    this.toasService.toasAlertWarn({
-                        message: 'Ha ocurrido un error!!!!',
-                        actionMessage: 'Cerrar',
-                        duration: 3000
+                    this.swalService.ToastAler({
+                        icon: 'error',
+                        title: 'Ha ocurrido un error al crear el registro!',
+                        timer: 4000,
                     })
                 })
             }
