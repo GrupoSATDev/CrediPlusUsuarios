@@ -3,7 +3,7 @@ import { NgClass } from '@angular/common';
 import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
-    Component,
+    Component, inject,
     Input,
     OnDestroy,
     OnInit,
@@ -17,6 +17,8 @@ import { Router } from '@angular/router';
 import { UserService } from 'app/core/user/user.service';
 import { User } from 'app/core/user/user.types';
 import { Subject, takeUntil } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { MiPerfilComponent } from '../../../pages/profile/mi-perfil/mi-perfil.component';
 
 @Component({
     selector: 'user',
@@ -37,6 +39,7 @@ export class UserComponent implements OnInit, OnDestroy {
     /* eslint-disable @typescript-eslint/naming-convention */
     static ngAcceptInputType_showAvatar: BooleanInput;
     /* eslint-enable @typescript-eslint/naming-convention */
+    private _matDialog = inject(MatDialog);
 
     @Input() showAvatar: boolean = true;
     user: User;
@@ -69,6 +72,15 @@ export class UserComponent implements OnInit, OnDestroy {
                 // Mark for check
                 this._changeDetectorRef.markForCheck();
             });
+    }
+
+    openProfile() {
+        this._matDialog.open(MiPerfilComponent, {
+            autoFocus: false,
+            maxHeight: '97vh',
+            disableClose: true,
+            panelClass: 'custom-dialog-container'
+        })
     }
 
     /**

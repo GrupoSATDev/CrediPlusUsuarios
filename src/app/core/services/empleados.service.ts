@@ -40,4 +40,9 @@ export class EmpleadosService {
     getValidaInfo(): Observable<any> {
       return this._http.get(this.appSettings.empleados.url.baseValidate)
     }
+
+    getPerfil(): Observable<any> {
+      return this._http.get(this.appSettings.empleados.url.basePerfil)
+    }
+
 }

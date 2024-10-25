@@ -1,0 +1,137 @@
+<div class="w-full sm:bg-card sm:rounded-2xl sm:mx-0 mx-auto" >
+
+    <div
+        class="mt-8 text-3xl font-semibold leading-tight tracking-tight text-center"
+    >
+        Mi perfil
+    </div>
+
+    <form class="mt-8" [formGroup]="form">
+
+        <div
+            class="group relative mx-auto mt-8 flex h-40 w-40 flex-0 rounded-full mb-8"
+        >
+            <div
+                class="absolute inset-0 hidden cursor-pointer flex-col items-center justify-center rounded-full bg-gray-800 bg-opacity-80 backdrop-blur backdrop-filter group-hover:flex"
+            >
+                <mat-icon
+                    class="text-white"
+                    [svgIcon]="'heroicons_outline:camera'"
+                ></mat-icon>
+                <div class="mx-6 mt-2 text-center font-medium text-white">
+                    Cambiar foto
+                </div>
+                <input
+                    type="file"
+                    class="absolute inset-0 opacity-0 cursor-pointer"
+                />
+            </div>
+            <!-- Mostrar la imagen o el texto inicial -->
+            <ng-container *ngIf="form.get('foto').value; else noAvatar">
+                <img
+                    class="h-full w-full rounded-full object-cover"
+                    [src]="image"
+                    [alt]="'Profile avatar'"
+                />
+            </ng-container>
+            <ng-template #noAvatar>
+                <div
+                    class="flex h-full w-full items-center justify-center rounded-full bg-gray-200 text-8xl font-semibold uppercase text-gray-600 dark:bg-gray-700 dark:text-gray-200"
+                >
+                    {{ form.get('primerNombre').value.charAt(0) ?? 'P' }}
+                </div>
+            </ng-template>
+        </div>
+
+        <div>
+            <p class="font-bold mb-4 text-2xl">Información general</p>
+            <div class="flex flex-col sm:flex-row gap-2.5">
+                <!-- Name field -->
+                <mat-form-field class="w-full" floatLabel="always">
+                    <mat-label>Primer nombre</mat-label>
+                    <input  matInput [formControlName]="'primerNombre'" placeholder="Primer nombre"  [readonly]="true"/>
+                </mat-form-field>
+
+                <!-- Name field -->
+                <mat-form-field class="w-full" floatLabel="always">
+                    <mat-label>Segundo nombre</mat-label>
+                    <input  matInput [formControlName]="'segundoNombre'" placeholder="Segundo nombre"  [readonly]="true"/>
+                </mat-form-field>
+
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-2.5">
+                <mat-form-field  class="w-full" floatLabel="always">
+                    <mat-label>Primer apellido</mat-label>
+                    <input  matInput [formControlName]="'primerApellido'" placeholder="Primer apellido"  [readonly]="true"/>
+                </mat-form-field>
+
+                <mat-form-field  class="w-full" floatLabel="always">
+                    <mat-label>Segundo apellido</mat-label>
+                    <input  matInput [formControlName]="'segundoApellido'" placeholder="Segundo apellido"  [readonly]="true"/>
+                </mat-form-field>
+            </div>
+
+            <div class="flex flex-col lg:flex-row mb-4 gap-2">
+                <!-- Name field -->
+                <mat-form-field class="w-full" floatLabel="always">
+                    <mat-label>Tipo de documento </mat-label>
+                    <input  matInput  placeholder="Tipo de documento" [formControlName]="'nombreTipoDocumento'" autocomplete="off" [readonly]="true"/>
+                </mat-form-field>
+
+                <mat-form-field  class="w-full" floatLabel="always">
+                    <mat-label>Número de identificación</mat-label>
+                    <input  matInput [formControlName]="'numDoc'" placeholder="Número de identificación"  [readonly]="true"/>
+                </mat-form-field>
+
+            </div>
+
+            <div class="flex flex-col lg:flex-row mb-4 gap-2">
+                <!-- Name field -->
+                <mat-form-field class="w-full" floatLabel="always">
+                    <mat-label>Teléfono </mat-label>
+                    <input  matInput  placeholder="Teléfono" [formControlName]="'telefono'" autocomplete="off" [readonly]="true"/>
+                </mat-form-field>
+
+                <mat-form-field  class="w-full" floatLabel="always">
+                    <mat-label>Correo electronico</mat-label>
+                    <input  matInput  [formControlName]="'correo'" placeholder="Correo electronico"  [readonly]="true"/>
+                </mat-form-field>
+
+            </div>
+
+            <div class="flex flex-col lg:flex-row mb-4 gap-2">
+                <!-- Name field -->
+                <mat-form-field class="w-full" floatLabel="always">
+                    <mat-label>Dirección</mat-label>
+                    <input  matInput  placeholder="Teléfono" autocomplete="off"  [formControlName]="'direccion'" [readonly]="true"/>
+                </mat-form-field>
+
+            </div>
+        </div>
+
+
+
+
+        <div class="flex flex-wrap justify-end gap-2.5 ">
+            <button mat-stroked-button [matDialogClose]="'cancelled'"
+                    class="sm:w-auto w-full bg-crediorange-100 rounded-lg transition duration-200 text-white font-semibold">
+                Cancelar
+            </button>
+
+            <button
+                mat-flat-button
+                [color]="'primary'"
+                [matDialogClose]="'confirmed'"
+                class="sm:w-auto w-full bg-crediblue-50 hover:bg-crediblue-100 text-white font-semibold py-2 px-4 rounded-lg transition duration-200"
+
+            >
+                Actualizar
+            </button>
+
+        </div>
+
+    </form>
+
+
+</div>
