@@ -66,7 +66,7 @@
                     <hr class="my-4">
 
                     <p class="lg:text-center text-lg font-semibold font-bold mb-6" *ngIf="items.detalleConsumos">Movimientos</p>
-                    <div class="mb-4" *ngIf="items.detalleConsumos">
+                    <div class="mb-4" *ngIf="items.detalleConsumos.length; else noTiene">
                         <div class="flex flex-wrap gap-2.5 justify-center">
                             <ng-container *ngFor="let item of items.detalleConsumos">
                                 <fuse-card
@@ -126,6 +126,16 @@
                             </ng-container>
                         </div>
                     </div>
+                    <ng-template #noTiene>
+                        <div class="inline-block p-4 sm:p-8 print:p-0 w-full">
+                            <fuse-alert
+                                [type]="'info'"
+                                [appearance]="'outline'">
+                                <span fuseAlertTitle>Información</span>
+                                No tienes movimientos realizados en este momento.
+                            </fuse-alert>
+                        </div>
+                    </ng-template>
                     <!-- Acciónes -->
 
                 </div>
