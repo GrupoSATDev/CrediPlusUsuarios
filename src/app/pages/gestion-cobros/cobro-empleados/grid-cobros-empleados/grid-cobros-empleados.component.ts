@@ -154,5 +154,5 @@ export class GridCobrosEmpleadosComponent implements OnInit, OnDestroy{
     }
 
 
-
+    protected readonly Object = Object;
 }
