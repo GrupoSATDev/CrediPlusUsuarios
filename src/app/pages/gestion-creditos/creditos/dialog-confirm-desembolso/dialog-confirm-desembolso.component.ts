@@ -57,7 +57,10 @@ export class DialogConfirmDesembolsoComponent implements OnInit{
     idSolicitud : string;
     tipoSolicitud$ = this.tipoSolicitudService.getTipos().pipe(
         map((response) => {
-            this.idSolicitud = response.data[0].id;
+            const desembolso = response.data.find(item => item.nombre === 'Desembolsos');
+            if (desembolso) {
+                this.idSolicitud = desembolso.id;
+            }
             return response;
         })
     ).subscribe()
