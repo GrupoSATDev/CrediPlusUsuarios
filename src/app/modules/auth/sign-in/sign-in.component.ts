@@ -39,6 +39,8 @@ import { AuthService } from 'app/core/auth/auth.service';
 })
 export class AuthSignInComponent implements OnInit {
     @ViewChild('signInNgForm') signInNgForm: NgForm;
+    deferredPrompt: any; // Para guardar el evento `beforeinstallprompt`
+    showInstallButton: boolean = false; // Control para mostrar el botón
 
     alert: { type: FuseAlertType; message: string } = {
         type: 'success',
@@ -72,6 +74,12 @@ export class AuthSignInComponent implements OnInit {
                 [Validators.required, Validators.email],
             ],
             contrasena: ['', Validators.required],
+        });
+
+        window.addEventListener('beforeinstallprompt', (event: any) => {
+            event.preventDefault(); // Previene que el navegador muestre el mensaje automáticamente
+            this.deferredPrompt = event; // Guarda el evento para usarlo más tarde
+            this.showInstallButton = true; // Muestra el botón de instalación
         });
     }
 
@@ -133,5 +141,19 @@ export class AuthSignInComponent implements OnInit {
                 this.showAlert = true;
             }
         );
+    }
+
+    installApp(): void {
+        if (this.deferredPrompt) {
+            this.deferredPrompt.prompt(); // Muestra el mensaje de instalación
+            this.deferredPrompt.userChoice.then((choiceResult: any) => {
+                if (choiceResult.outcome === 'accepted') {
+                    console.log('PWA instalada');
+                } else {
+                    console.log('Instalación rechazada');
+                }
+                this.deferredPrompt = null; // Resetea el prompt
+            });
+        }
     }
 }
