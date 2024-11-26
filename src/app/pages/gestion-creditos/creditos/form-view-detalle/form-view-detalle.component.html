@@ -112,7 +112,7 @@
                                            }">
                                         </p>
                                     </div>
-                                    <ng-container *ngIf="item.idEstadoCredito == CodigosDetalleConsumo.EN_REVISION">
+                                    <ng-container *ngIf="item.idEstadoCredito == CodigosDetalleConsumo.EN_REVISION && item.idTipoConsumo != 'e626ea69-e995-4462-be9a-905326114791'">
                                         <div class="flex justify-between items-center mt-2 p-4 gap-2.5">
                                             <button (click)="onReject(item.id)" mat-flat-button class="lg:w-auto w-full bg-crediorange-100 text-white font-semibold py-2 px-4 rounded-lg transition duration-200">
                                                 Rechazar
