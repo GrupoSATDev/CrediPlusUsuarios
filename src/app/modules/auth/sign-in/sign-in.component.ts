@@ -77,6 +77,7 @@ export class AuthSignInComponent implements OnInit {
         });
 
         window.addEventListener('beforeinstallprompt', (event: any) => {
+            console.log(event)
             event.preventDefault(); // Previene que el navegador muestre el mensaje automáticamente
             this.deferredPrompt = event; // Guarda el evento para usarlo más tarde
             this.showInstallButton = true; // Muestra el botón de instalación
@@ -128,8 +129,6 @@ export class AuthSignInComponent implements OnInit {
                 // Re-enable the form
                 this.signInForm.enable();
 
-                // Reset the form
-                this.signInNgForm.resetForm();
 
                 // Set the alert
                 this.alert = {
@@ -144,6 +143,7 @@ export class AuthSignInComponent implements OnInit {
     }
 
     installApp(): void {
+        console.log('Clickic')
         if (this.deferredPrompt) {
             this.deferredPrompt.prompt(); // Muestra el mensaje de instalación
             this.deferredPrompt.userChoice.then((choiceResult: any) => {
