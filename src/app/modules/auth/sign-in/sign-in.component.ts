@@ -129,8 +129,6 @@ export class AuthSignInComponent implements OnInit {
                 // Re-enable the form
                 this.signInForm.enable();
 
-                // Reset the form
-                this.signInNgForm.resetForm();
 
                 // Set the alert
                 this.alert = {
