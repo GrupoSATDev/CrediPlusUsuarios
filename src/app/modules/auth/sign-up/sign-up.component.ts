@@ -151,13 +151,11 @@ export class AuthSignUpComponent implements OnInit {
                         // Re-enable the form
                         this.signUpForm.enable();
 
-                        // Reset the form
-                        this.signUpNgForm.resetForm();
 
                         // Set the alert
                         this.alert = {
                             type: 'error',
-                            message: '¡Error al registrar!.',
+                            message: response.error.errorMenssages[0],
                         };
 
                         // Show the alert
