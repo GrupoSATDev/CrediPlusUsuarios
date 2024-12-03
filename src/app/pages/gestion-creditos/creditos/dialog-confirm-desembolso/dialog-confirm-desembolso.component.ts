@@ -71,7 +71,7 @@ export class DialogConfirmDesembolsoComponent implements OnInit{
     public cupoAvance : number;
 
     validarCampo() {
-        this.cupoAvance = ((this._matData.data.cupoDisponible * 20) / 100)
+        this.cupoAvance = ((this._matData.data.cupoDisponible * this._matData.data.cupoDisponibleAvances) / 100)
         this.cupo.setValidators(Validators.compose([Validators.required, validateNumbers(this.cupoAvance)]))
         this.cupo.updateValueAndValidity();
     }
