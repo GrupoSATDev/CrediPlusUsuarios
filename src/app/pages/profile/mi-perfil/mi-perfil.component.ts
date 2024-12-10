@@ -1,11 +1,11 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MatDialogClose, MatDialogRef } from '@angular/material/dialog';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidatorFn, Validators } from '@angular/forms';
 import { EmpleadosService } from '../../../core/services/empleados.service';
 import { SwalService } from '../../../core/services/swal.service';
 import { Subscription } from 'rxjs';
-import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { MatIcon } from '@angular/material/icon';
 import { NgIf } from '@angular/common';
@@ -22,6 +22,7 @@ import { NgIf } from '@angular/common';
         MatLabel,
         MatIcon,
         NgIf,
+        MatError,
     ],
   templateUrl: './mi-perfil.component.html',
   styleUrl: './mi-perfil.component.scss'
@@ -80,9 +81,31 @@ export class MiPerfilComponent implements OnInit{
             idSubEmpresa: [''],
             idTipoContrato: [''],
             nombreTipoDocumento: [''],
-            estado: ['true']
-        })
+            estado: ['true'],
+            contrasena: ['', [Validators.minLength(5), Validators.maxLength(20)]],
+            confirmaContrasena: ['', [Validators.minLength(5), Validators.maxLength(20)]],
+        },
+        { validators: passwordMatchValidator('contrasena', 'confirmaContrasena') })
 
 
     }
+}
+
+export function passwordMatchValidator(controlName: string, matchingControlName: string): ValidatorFn {
+    return (formGroup: AbstractControl) => {
+        const control = formGroup.get(controlName);
+        const matchingControl = formGroup.get(matchingControlName);
+
+        if (matchingControl?.errors && !matchingControl.errors['passwordMismatchError']) {
+            return null; // Return if another validator has already found an error
+        }
+
+        // Set error on matchingControl if validation fails
+        if (control?.value !== matchingControl?.value) {
+            matchingControl?.setErrors({ passwordMismatchError: true });
+        } else {
+            matchingControl?.setErrors(null);
+        }
+        return null;
+    };
 }
