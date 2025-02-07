@@ -17,6 +17,10 @@ export class CreditosService {
         return this._http.get(`${this.appSettings.creditos.url.base}/${param}`)
     }
 
+    getCreditosCard(): Observable<any> {
+        return this._http.get(`${this.appSettings.creditos.url.base}/TrabajadorCard`)
+    }
+
     getCredito(id): Observable<any> {
         return this._http.get(`${this.appSettings.creditos.url.base}/${id}`)
     }

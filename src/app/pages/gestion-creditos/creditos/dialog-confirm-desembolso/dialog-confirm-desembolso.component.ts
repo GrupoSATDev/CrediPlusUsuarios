@@ -20,6 +20,7 @@ import { guardar } from '../../../../core/constant/dialogs';
 import { SolicitudesService } from '../../../../core/services/solicitudes.service';
 import { CurrencyPipe, NgClass, NgIf } from '@angular/common';
 import { IConfig, NgxMaskDirective, provideNgxMask } from 'ngx-mask';
+import { AesEncryptionService } from '../../../../core/services/aes-encryption.service';
 
 const maskConfig: Partial<IConfig> = {
     validation: false,
@@ -53,7 +54,8 @@ const maskConfig: Partial<IConfig> = {
 export class DialogConfirmDesembolsoComponent implements OnInit{
     public _matData = inject(MAT_DIALOG_DATA);
     private swalService = inject(SwalService);
-    private tipoSolicitudService = inject(TipoSolicitudesService)
+    private tipoSolicitudService = inject(TipoSolicitudesService);
+    public aesEncriptService = inject(AesEncryptionService);
     idSolicitud : string;
     tipoSolicitud$ = this.tipoSolicitudService.getTipos().pipe(
         map((response) => {
@@ -64,15 +66,16 @@ export class DialogConfirmDesembolsoComponent implements OnInit{
             return response;
         })
     ).subscribe()
-    cupo = new  FormControl('', )
+    cupo = new  FormControl('')
     public fuseService = inject(FuseConfirmationService);
     private solicitudService: SolicitudesService = inject(SolicitudesService)
     public dialogRef = inject(MatDialogRef<DialogConfirmDesembolsoComponent>);
-    public cupoAvance : number;
+    public cupoAvance : number | string;
 
     validarCampo() {
-        this.cupoAvance = (this._matData.data.cupoDisponible)
-        this.cupo.setValidators(Validators.compose([Validators.required, validateNumbers(this.cupoAvance)]))
+        this.cupoAvance = this.aesEncriptService.decrypt(this._matData.data.cupoDisponible);
+        const cupoAvanceNumber = Number(this.cupoAvance);
+        this.cupo.setValidators(Validators.compose([Validators.required, validateNumbers(cupoAvanceNumber)]))
         this.cupo.updateValueAndValidity();
     }
 

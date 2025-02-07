@@ -1,6 +1,6 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { CdkScrollable } from '@angular/cdk/scrolling';
-import { CurrencyPipe, DatePipe, NgClass, NgForOf, NgIf } from '@angular/common';
+import { CurrencyPipe, DatePipe, DecimalPipe, NgClass, NgForOf, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatAnchor, MatButton } from '@angular/material/button';
 import { MatDatepicker, MatDatepickerInput, MatDatepickerToggle } from '@angular/material/datepicker';
@@ -18,7 +18,7 @@ import { TiposPagosService } from '../../../../core/services/tipos-pagos.service
 import { CapitalInversionService } from '../../../../core/services/capital-inversion.service';
 import { EstadoCreditosService } from '../../../../core/services/estado-creditos.service';
 import { TasasInteresService } from '../../../../core/services/tasas-interes.service';
-import { Subscription } from 'rxjs';
+import { map, Subscription } from 'rxjs';
 import { DateAdapterService } from '../../../../core/services/date-adapter.service';
 import { CustomTableComponent } from '../../../shared/custom-table/custom-table.component';
 import { FuseCardComponent } from '../../../../../@fuse/components/card';
@@ -29,6 +29,7 @@ import { DetalleConsumoService } from '../../../../core/services/detalle-consumo
 import { guardar } from '../../../../core/constant/dialogs';
 import { SwalService } from '../../../../core/services/swal.service';
 import { FuseAlertComponent } from '../../../../../@fuse/components/alert';
+import { AesEncryptionService } from '../../../../core/services/aes-encryption.service';
 
 @Component({
   selector: 'app-form-view-detalle',
@@ -38,22 +39,9 @@ import { FuseAlertComponent } from '../../../../../@fuse/components/alert';
         CurrencyPipe,
         DatePipe,
         FormsModule,
-        MatAnchor,
         MatButton,
-        MatDatepicker,
-        MatDatepickerInput,
-        MatDatepickerToggle,
-        MatFormField,
-        MatIcon,
-        MatInput,
-        MatLabel,
-        MatOption,
-        MatSelect,
-        MatSuffix,
         NgForOf,
         NgIf,
-        RouterLink,
-        CustomTableComponent,
         FuseCardComponent,
         NgClass,
         FuseAlertComponent,
@@ -61,7 +49,9 @@ import { FuseAlertComponent } from '../../../../../@fuse/components/alert';
     providers: [
         { provide: DateAdapter, useClass: DateAdapterService },
         { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
-        DatePipe
+        DatePipe,
+        CurrencyPipe,
+        DecimalPipe,
     ],
   templateUrl: './form-view-detalle.component.html',
   styleUrl: './form-view-detalle.component.scss'
@@ -74,6 +64,7 @@ export class FormViewDetalleComponent implements OnInit, OnDestroy{
     private creditoService: CreditosService = inject(CreditosService);
     public detalleConsumoService = inject(DetalleConsumoService);
     private router = inject(Router);
+    private route = inject(ActivatedRoute);
     public subcription$: Subscription;
     public items: any;
     public detalleEmpleado: any;
@@ -85,6 +76,8 @@ export class FormViewDetalleComponent implements OnInit, OnDestroy{
     idCredito: string = '';
     public _matDialog = inject(MatDialog);
     private swalService = inject(SwalService);
+    public aesEncriptService = inject(AesEncryptionService);
+    private currencyPipe = inject(CurrencyPipe);
 
     ngOnDestroy(): void {
         this.subcription$.unsubscribe();
@@ -172,11 +165,13 @@ export class FormViewDetalleComponent implements OnInit, OnDestroy{
 
     ngOnInit(): void {
         this.idCredito = 'Trabajador'
-        this.getCredito(this.idCredito);
+        const id = this.activatedRoute.snapshot.paramMap.get('id');
+        this.getCredito(id);
     }
 
     getCredito(id) {
-        this.subcription$ = this.creditoService.getCredito(id).subscribe((response) => {
+        this.subcription$ = this.creditoService.getCredito(id).pipe(
+        ).subscribe((response) => {
             this.items = response.data;
         })
     }

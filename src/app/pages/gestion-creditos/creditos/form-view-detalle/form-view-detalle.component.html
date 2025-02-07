@@ -36,10 +36,10 @@
                                 <span class="text-md text-secondary ">{{items.numCredito}}</span>
                             </p>
                             <p class="font-medium text-gray-600">Cupo aprobado:
-                                <span class="text-md text-secondary ">{{items.cupoAprobado | currency}}</span>
+                                <span class="text-md text-secondary ">{{aesEncriptService.decrypt(items.cupoAprobado) | currency}}</span>
                             </p>
                             <p class="font-medium text-gray-600">Tasa de interes díaria:
-                                <span class="text-md text-secondary ">{{items.porcTasaInteres }}%</span>
+                                <span class="text-md text-secondary ">{{aesEncriptService.decrypt(items.porcTasaInteres) }}%</span>
                             </p>
                             <p class="font-medium text-gray-600">Fecha de aprobacion:
                                 <span class="text-md text-secondary ">{{items.fechaAprobacion | date:'dd/MM/yyyy' }}</span>
@@ -51,10 +51,10 @@
                                 <span class="text-md text-secondary ">{{items.fechaCorte | date:'dd/MM/yyyy' }}</span>
                             </p>
                             <p class="font-medium text-gray-600">Cupo utilizado:
-                                <span class="text-md text-secondary ">{{items.cupoConsumido | currency }}</span>
+                                <span class="text-md text-secondary ">{{aesEncriptService.decrypt(items.cupoConsumido) | currency }}</span>
                             </p>
                             <p class="font-medium text-gray-600">Saldo Disponible:
-                                <span class="text-md text-secondary ">{{items.cupoDisponible | currency }}</span>
+                                <span class="text-md text-secondary ">{{aesEncriptService.decrypt(items.cupoDisponible) | currency }}</span>
                             </p>
                             <!-- TODO: Se retira hasta nueva solicitud -->
                             <button
@@ -89,7 +89,7 @@
                                         </p>
                                         <p class="font-medium text-gray-600">Valor:
                                             <span class="text-md text-secondary">
-                                            {{item.montoConsumo | currency }}
+                                            {{aesEncriptService.decrypt(item.montoConsumo) | currency }}
                                         </span>
                                         </p>
                                     </div>
