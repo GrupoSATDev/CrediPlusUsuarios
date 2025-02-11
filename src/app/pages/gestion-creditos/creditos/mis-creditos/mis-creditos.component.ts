@@ -34,7 +34,12 @@ export class MisCreditosComponent implements OnInit{
 
     getCredito() {
         this.subcription$ = this.creditoService.getCreditosCard().subscribe((response) => {
-            this.data = response.data;
+            if (response.data.length === 1) {
+                const id = response.data[0].id;
+                this.router.navigate(['/pages/gestion-creditos/creditos/view-detalle', id]);
+            }else {
+                this.data = response.data;
+            }
         })
     }
 
