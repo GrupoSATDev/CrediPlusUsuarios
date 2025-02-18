@@ -57,10 +57,11 @@ export class AuthService {
      *
      * @param credentials
      */
-    signIn(credentials: { correo: string; contrasena: string }): Observable<any> {
+    signIn(credentials: { correo: string; contrasena: string; idTipoUsuario: string }): Observable<any> {
         const form = {
             correo: credentials.correo,
-            contrasena: credentials.contrasena
+            contrasena: credentials.contrasena,
+            idTipoUsuario: credentials.idTipoUsuario
         }
 
         const encryptForm = {
