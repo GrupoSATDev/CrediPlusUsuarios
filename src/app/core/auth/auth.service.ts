@@ -158,6 +158,10 @@ export class AuthService {
             );
     }
 
+    logoutSession(): Observable<any> {
+        return this._httpClient.post(this._appSettings.auth.url.baseOut, {});
+    }
+
     /**
      * Sign out
      */
