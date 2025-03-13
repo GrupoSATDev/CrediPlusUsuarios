@@ -166,6 +166,7 @@ export class AuthService {
         );
     }
 
+
     /**
      * Sign in using the access token
      */
@@ -312,7 +313,6 @@ export class AuthService {
 
         this._authenticated = false;
         this._userService.user = null; // Limpiar usuario
-        this.router.navigate(['/sign-in']);
 
         return of(true);
     }
