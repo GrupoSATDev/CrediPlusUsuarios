@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, inject, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import {
     FormsModule,
     NgForm,
@@ -12,12 +12,13 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { fuseAnimations } from '@fuse/animations';
 import { FuseAlertComponent, FuseAlertType } from '@fuse/components/alert';
 import { FuseValidators } from '@fuse/validators';
 import { AuthService } from 'app/core/auth/auth.service';
-import { finalize } from 'rxjs';
+import { delay, finalize } from 'rxjs';
+import { AesEncryptionService } from '../../../core/services/aes-encryption.service';
 
 @Component({
     selector: 'auth-reset-password',
@@ -39,20 +40,25 @@ import { finalize } from 'rxjs';
 })
 export class AuthResetPasswordComponent implements OnInit {
     @ViewChild('resetPasswordNgForm') resetPasswordNgForm: NgForm;
+    token: string;
+    private aesEncriptService = inject(AesEncryptionService);
 
     alert: { type: FuseAlertType; message: string } = {
         type: 'success',
-        message: '',
+        message: 'Contraseña actualizada con éxito.',
     };
     resetPasswordForm: UntypedFormGroup;
     showAlert: boolean = false;
+    showResponse: boolean = false;
 
     /**
      * Constructor
      */
     constructor(
         private _authService: AuthService,
-        private _formBuilder: UntypedFormBuilder
+        private _formBuilder: UntypedFormBuilder,
+        private activatedRoute: ActivatedRoute,
+        private router: Router,
     ) {}
 
     // -----------------------------------------------------------------------------------------------------
@@ -63,16 +69,17 @@ export class AuthResetPasswordComponent implements OnInit {
      * On init
      */
     ngOnInit(): void {
+        this.token = this.activatedRoute.snapshot.queryParamMap.get('token');
         // Create the form
         this.resetPasswordForm = this._formBuilder.group(
             {
-                password: ['', Validators.required],
-                passwordConfirm: ['', Validators.required],
+                contrasena: ['', [Validators.required, Validators.minLength(8)]],
+                contrasenaConfirm: ['', [Validators.required, Validators.minLength(8)]],
             },
             {
                 validators: FuseValidators.mustMatch(
-                    'password',
-                    'passwordConfirm'
+                    'contrasena',
+                    'contrasenaConfirm'
                 ),
             }
         );
@@ -97,9 +104,14 @@ export class AuthResetPasswordComponent implements OnInit {
         // Hide the alert
         this.showAlert = false;
 
+        const form = {
+            contrasena: this.aesEncriptService.encrypt(this.resetPasswordForm.get('contrasena').value),
+            token: this.token.replace(/\s/g, '+')
+        };
+
         // Send the request to the server
         this._authService
-            .resetPassword(this.resetPasswordForm.get('password').value)
+            .resetPassword(form)
             .pipe(
                 finalize(() => {
                     // Re-enable the form
@@ -110,21 +122,24 @@ export class AuthResetPasswordComponent implements OnInit {
 
                     // Show the alert
                     this.showAlert = true;
-                })
+                    this.showResponse = true;
+                }),
+                delay(3500)
             )
             .subscribe(
                 (response) => {
                     // Set the alert
                     this.alert = {
                         type: 'success',
-                        message: 'Your password has been reset.',
+                        message: 'Contraseña actualizada con éxito.',
                     };
+                    this.router.navigate(['/sign-in']);
                 },
                 (response) => {
                     // Set the alert
                     this.alert = {
                         type: 'error',
-                        message: 'Something went wrong, please try again.',
+                        message: response.error.errorMenssages[0],
                     };
                 }
             );

@@ -16,6 +16,7 @@ import { fuseAnimations } from '@fuse/animations';
 import { FuseAlertComponent, FuseAlertType } from '@fuse/components/alert';
 import { AuthService } from 'app/core/auth/auth.service';
 import { finalize } from 'rxjs';
+import { NgIf } from '@angular/common';
 
 @Component({
     selector: 'auth-forgot-password',
@@ -32,6 +33,7 @@ import { finalize } from 'rxjs';
         MatButtonModule,
         MatProgressSpinnerModule,
         RouterLink,
+        NgIf,
     ],
 })
 export class AuthForgotPasswordComponent implements OnInit {
@@ -43,6 +45,7 @@ export class AuthForgotPasswordComponent implements OnInit {
     };
     forgotPasswordForm: UntypedFormGroup;
     showAlert: boolean = false;
+    showResponse: boolean = false;
 
     /**
      * Constructor
@@ -98,6 +101,7 @@ export class AuthForgotPasswordComponent implements OnInit {
 
                     // Show the alert
                     this.showAlert = true;
+                    this.showResponse = true;
                 })
             )
             .subscribe(
@@ -106,15 +110,14 @@ export class AuthForgotPasswordComponent implements OnInit {
                     this.alert = {
                         type: 'success',
                         message:
-                            "Password reset sent! You'll receive an email if you are registered on our system.",
+                            '¡Se ha enviado el restablecimiento de contraseña! Recibirás un correo electrónico para continuar con el proceso.',
                     };
                 },
                 (response) => {
                     // Set the alert
                     this.alert = {
                         type: 'error',
-                        message:
-                            'Email does not found! Are you sure you are already a member?',
+                        message: '¡No se encontró el correo electrónico!',
                     };
                 }
             );
