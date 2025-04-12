@@ -7,4 +7,4 @@ services:
     container_name: crediplus_mod_trabajadores
     restart: always
     ports:
-      - "7079:4200"
+      - "7079:80"
