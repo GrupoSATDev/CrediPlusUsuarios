@@ -1,13 +1,13 @@
-FROM node:20.19.0
-
+FROM node:20.19.0 AS builder
 WORKDIR /app
-
 COPY package*.json ./
-
 RUN npm install --force
-
 COPY . .
+RUN npm run build --prod
 
-RUN npm run build  
-
-CMD ["node", "dist/main.js"]
+# Etapa 2: Producción
+FROM nginx:alpine AS runner
+WORKDIR /usr/share/nginx/html
+COPY --from=builder /app/dist/CREDIPLUSUSUARIOS ./
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
