@@ -8,6 +8,6 @@ RUN npm run build --prod
 # Etapa 2: Producción
 FROM nginx:alpine AS runner
 WORKDIR /usr/share/nginx/html
-COPY --from=builder /app/dist/CREDIPLUSUSUARIOS ./
+COPY --from=builder /app/dist/browser ./
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
