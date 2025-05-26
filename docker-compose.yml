@@ -1,0 +1,10 @@
+version: '3.9'
+
+services:
+  crediplus_mod_trabajadores:
+    build:
+      context: ./
+    container_name: crediplus_mod_trabajadores
+    restart: always
+    ports:
+      - "7079:80"
